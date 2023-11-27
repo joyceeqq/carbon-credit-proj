@@ -4,7 +4,7 @@ import CompanyRegistration from './components/CompanyRegistration';
 import ProjectSubmission from './components/ProjectSubmission';
 import TradeCreation from './components/TradeCreation';
 import TradeCompletion from './components/TradeCompletion';
-import './App.css'; // Import your main stylesheet
+import './App.css';
 
 function App() {
   return (
