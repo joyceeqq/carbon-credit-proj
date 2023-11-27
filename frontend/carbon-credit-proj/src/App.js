@@ -4,30 +4,23 @@ import CompanyRegistration from './components/CompanyRegistration';
 import ProjectSubmission from './components/ProjectSubmission';
 import TradeCreation from './components/TradeCreation';
 import TradeCompletion from './components/TradeCompletion';
+import './App.css'; // Import your main stylesheet
 
 function App() {
   return (
     <Router>
-      <div>
-        {/* Navigation Links */}
-        <nav>
+      <div className="app-container">
+        {/* Responsive Navigation Bar */}
+        <nav className="main-nav">
           <ul>
-            <li>
-              <Link to="/register-company">Register Company</Link>
-            </li>
-            <li>
-              <Link to="/submit-project">Submit Project</Link>
-            </li>
-            <li>
-              <Link to="/create-trade">Create Trade</Link>
-            </li>
-            <li>
-              <Link to="/complete-trade">Complete Trade</Link>
-            </li>
+            <li><Link to="/register-company">Register Company</Link></li>
+            <li><Link to="/submit-project">Submit Project</Link></li>
+            <li><Link to="/create-trade">Create Trade</Link></li>
+            <li><Link to="/complete-trade">Complete Trade</Link></li>
           </ul>
         </nav>
 
-        {/* Route Configuration */}
+        {/* Routes */}
         <Routes>
           <Route path="/register-company" element={<CompanyRegistration />} />
           <Route path="/submit-project" element={<ProjectSubmission />} />
