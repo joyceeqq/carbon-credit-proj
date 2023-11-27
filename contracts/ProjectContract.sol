@@ -2,7 +2,7 @@
 // This file will handle everything related to carbon offset projects
 pragma solidity ^0.8.0;
 
-import "./Company.sol";
+import "./CompanyContract.sol";
 
 contract ProjectContract {
     struct Project {

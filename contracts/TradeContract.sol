@@ -2,7 +2,7 @@
 // To handle OTC trades
 pragma solidity ^0.8.0;
 
-import "./Company.sol";
+import "./CompanyContract.sol";
 
 contract TradeContract {
     struct Trade {

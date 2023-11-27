@@ -2,9 +2,9 @@
 // the contract that integrates other contracts
 pragma solidity ^0.8.0;
 
-import "./Company.sol";
-import "./Project.sol";
-import "./Trade.sol";
+import "./CompanyContract.sol";
+import "./ProjectContract.sol";
+import "./TradeContract.sol";
 
 contract CarbonCredits is CompanyContract, ProjectContract, TradeContract {
     // Main contract that integrates functionality from Company, Project, and Trade contracts
