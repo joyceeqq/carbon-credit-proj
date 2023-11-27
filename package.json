@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@truffle/hdwallet-provider": "^2.1.15",
-    "chai": "^4.3.10"
+    "chai": "^4.3.10",
+    "eth-block-tracker": "^8.1.0"
   }
 }
