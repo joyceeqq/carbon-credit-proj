@@ -14,8 +14,14 @@ As our React project is separate from our Truffle project, everytime we compile 
 
 ### Testing Smart contracts
 Ensure that ganache is running:
-```ganache```
+```
+ganache
+```
 Before running the tests, we need to deploy our contract into ganache. Open a new terminal and run:
-```truffle migrate --reset```
+```
+truffle migrate --reset
+```
 We can then run the tests now:
-```truffle test```
+```
+truffle test
+```
