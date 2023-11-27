@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import CompanyRegistration from './components/CompanyRegistration';
 import ProjectSubmission from './components/ProjectSubmission';
 import TradeCreation from './components/TradeCreation';
@@ -28,20 +28,12 @@ function App() {
         </nav>
 
         {/* Route Configuration */}
-        <Switch>
-          <Route path="/register-company">
-            <CompanyRegistration />
-          </Route>
-          <Route path="/submit-project">
-            <ProjectSubmission />
-          </Route>
-          <Route path="/create-trade">
-            <TradeCreation />
-          </Route>
-          <Route path="/complete-trade">
-            <TradeCompletion />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/register-company" element={<CompanyRegistration />} />
+          <Route path="/submit-project" element={<ProjectSubmission />} />
+          <Route path="/create-trade" element={<TradeCreation />} />
+          <Route path="/complete-trade" element={<TradeCompletion />} />
+        </Routes>
       </div>
     </Router>
   );

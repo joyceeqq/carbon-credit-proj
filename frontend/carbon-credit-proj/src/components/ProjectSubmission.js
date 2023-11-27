@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import getWeb3 from '../utils/getWeb3';
-import ProjectContract from '../contracts/Project.json'; // Import ABI
+import ProjectContract from '../contracts/ProjectContract.json'; // Import ABI
 import { uploadToIPFS } from '../utils/ipfs'; // Import IPFS upload function
 
 const ProjectSubmission = () => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
   const [file, setFile] = useState(null); // State to hold the uploaded file
+  const [projectName, setProjectName] = useState(''); // State for project name
+  const [expectedOffsets, setExpectedOffsets] = useState(''); // State for expected offsets
+  const [description, setDescription] = useState(''); // State for description
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
