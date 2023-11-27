@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import getWeb3 from '../utils/getWeb3';
-import ProjectContract from '../contracts/ProjectContract.json'; // Import ABI
-import { uploadToIPFS } from '../utils/ipfs'; // Import IPFS upload function
+import ProjectContract from '../contracts/ProjectContract.json';
+import { uploadToIPFS } from '../utils/ipfs';
 
 const ProjectSubmission = () => {
   const [web3, setWeb3] = useState(null);
-  const [contract, setContract] = useState(null);
-  const [file, setFile] = useState(null); // State to hold the uploaded file
-  const [projectName, setProjectName] = useState(''); // State for project name
-  const [expectedOffsets, setExpectedOffsets] = useState(''); // State for expected offsets
-  const [description, setDescription] = useState(''); // State for description
+  const [projectName, setProjectName] = useState('');
+  const [expectedOffsets, setExpectedOffsets] = useState('');
+  const [description, setDescription] = useState('');
+  const [file, setFile] = useState(null);
+  const [message, setMessage] = useState('');
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  const handleSubmitProject = async (projectName, expectedOffsets, description) => {
+  const handleSubmitProject = async (event) => {
+    event.preventDefault();
+
     if (!web3) {
       const web3Instance = await getWeb3();
       setWeb3(web3Instance);
@@ -23,33 +25,65 @@ const ProjectSubmission = () => {
 
     const networkId = await web3.eth.net.getId();
     const deployedNetwork = ProjectContract.networks[networkId];
-    const instance = new web3.eth.Contract(
+    const contractInstance = new web3.eth.Contract(
       ProjectContract.abi,
       deployedNetwork && deployedNetwork.address,
     );
-    setContract(instance);
 
-    const accounts = await web3.eth.getAccounts();
-
-    // First, upload the file to IPFS and get the URL
     let fileUrl = '';
     if (file) {
       fileUrl = await uploadToIPFS(file);
     }
 
-    // Assuming the smart contract has a parameter to accept the URL of the uploaded file
-    await contract.methods.submitProject(projectName, expectedOffsets, description, fileUrl).send({ from: accounts[0] });
-
-    // Handle additional logic and UI updates
+    try {
+      const accounts = await web3.eth.getAccounts();
+      await contractInstance.methods.submitProject(projectName, Number(expectedOffsets), description, fileUrl).send({ from: accounts[0] });
+      setMessage('Project submitted successfully!');
+    } catch (error) {
+      setMessage(`Error submitting project: ${error.message}`);
+    }
   };
 
   return (
     <div>
-      {/* Additional form fields for projectName, expectedOffsets, description */}
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={() => handleSubmitProject(projectName, expectedOffsets, description)}>
-        Submit Project
-      </button>
+      <h2>Submit Project</h2>
+      <form onSubmit={handleSubmitProject}>
+        <div>
+          <label>Project Name:</label>
+          <input
+            type="text"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            placeholder="Enter project name"
+            required
+          />
+        </div>
+        <div>
+          <label>Expected Offsets:</label>
+          <input
+            type="number"
+            value={expectedOffsets}
+            onChange={(e) => setExpectedOffsets(e.target.value)}
+            placeholder="Enter expected offsets"
+            required
+          />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter project description"
+            required
+          />
+        </div>
+        <div>
+          <label>Project Proposal File:</label>
+          <input type="file" onChange={handleFileChange} />
+        </div>
+        <button type="submit">Submit Project</button>
+      </form>
+      {message && <p>{message}</p>}
     </div>
   );
 };
