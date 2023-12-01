@@ -11,6 +11,7 @@ npm install -g truffle
 ```
 npm install ganache --global
 ```
+- Download IPFS via the IPFS website. Run `ipfs init` in your terminal to initialise IPFS on your machine and create a new IPFS repository.
 
 ### Editting or adding new smart contracts
 You can create `.sol` files insider the `contracts` directory. Write your solidity smart contracts for handling the various functions of our carbon credits system. Compile your contacts to check for any errors and generate ABI (Application Binary Interface):
@@ -31,4 +32,19 @@ truffle migrate --reset
 We can then run the tests now:
 ```
 truffle test
+```
+### How to run the application
+- Open one terminal and run ganache:
+```
+ganache
+```
+- Open a new terminal and run ipfs daemon to start the IPFS daemon. This starts an IPFS node on your local machine, allowing you to interact with the IPFS network.
+```
+ipfs daemon
+```
+- Open a  new terminal again and cd to the frontend directory to run the react application:
+```
+cd frontend
+cd carbon-credit-proj
+npm start
 ```
