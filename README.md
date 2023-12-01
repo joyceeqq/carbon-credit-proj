@@ -7,7 +7,10 @@
 ```
 npm install -g truffle
 ```
-- Install Ganache: You can download the desktop application
+- Install Ganache globally:
+```
+npm install ganache --global
+```
 
 ### Editting or adding new smart contracts
 You can create `.sol` files insider the `contracts` directory. Write your solidity smart contracts for handling the various functions of our carbon credits system. Compile your contacts to check for any errors and generate ABI (Application Binary Interface):
