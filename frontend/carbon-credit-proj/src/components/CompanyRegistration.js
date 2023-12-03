@@ -96,20 +96,26 @@ const CompanyRegistration = () => {
               </span>
             </Link>
             <div class="flex w-1/2 justify-end content-center">
-              <Link
-                class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
-                href="https://twitter.com/intent/tweet?url=#"
+            <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
+                to={"/dashboard/create-trade"}
+                >
+                    Create Trade
+                </Link>
+                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
+                to={"/dashboard/complete-trade"}
+                >
+                    Complete Trade                
+                </Link>
+                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
                 to={"/dashboard/register-company"}
-              >
-                Register Company
-              </Link>
-              <Link
-                class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
-                href="https://twitter.com/intent/tweet?url=#"
+                >
+                    Register Company 
+                </Link>
+                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
                 to={"/dashboard/submit-project"}
-              >
-                Submit Project
-              </Link>
+                >
+                    Submit Project          
+                </Link>
             </div>
           </div>
         </div>

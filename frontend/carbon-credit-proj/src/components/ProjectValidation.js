@@ -4,7 +4,7 @@ import ProjectContract from '../contracts/ProjectContract.json';
 import { uploadToIPFS } from '../utils/ipfs';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-const ProjectSubmission = () => {
+const ProjectValidation = () => {
   const [web3, setWeb3] = useState(null);
   const [projectName, setProjectName] = useState('');
   const [expectedOffsets, setExpectedOffsets] = useState('');
@@ -70,22 +70,7 @@ const ProjectSubmission = () => {
                 </Link>
                 <div class="flex w-1/2 justify-end content-center">
                 <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
-                to={"/dashboard/create-trade"}
-                >
-                    Create Trade
-                </Link>
-                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
-                to={"/dashboard/complete-trade"}
-                >
-                    Complete Trade                
-                </Link>
-                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
-                to={"/dashboard/register-company"}
-                >
-                    Register Company 
-                </Link>
-                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
-                to={"/dashboard/submit-project"}
+                to={"/dashboard/validate-project"}
                 >
                     Submit Project          
                 </Link>
@@ -98,7 +83,7 @@ const ProjectSubmission = () => {
         <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col items-center">
         <form onSubmit={handleSubmitProject} class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
           <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
-              Submit your project here!
+              Validate project!
             </label>
             <div className="text-indigo-400 font-bold">
               <label>Project Name:</label>
@@ -150,4 +135,4 @@ const ProjectSubmission = () => {
   );
 };
 
-export default ProjectSubmission;
+export default ProjectValidation;

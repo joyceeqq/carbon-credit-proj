@@ -8,6 +8,7 @@ import CompanyRegistration from './components/CompanyRegistration';
 import ProjectSubmission from './components/ProjectSubmission';
 import TradeCompletion from './components/TradeCompletion';
 import TradeCreation from './components/TradeCreation';
+import ProjectValidation from './components/ProjectValidation';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/dashboard/submit-project" element={<ProjectSubmission />} />
             <Route path="/dashboard/create-trade" element={<TradeCreation />} />
             <Route path="/dashboard/complete-trade" element={<TradeCompletion />} />
+            <Route path="/dashboard/validate-project" element={<ProjectValidation />} />
         </Routes>
       </div>
     </Router>
