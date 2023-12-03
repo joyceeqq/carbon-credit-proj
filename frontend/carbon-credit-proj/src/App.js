@@ -9,6 +9,7 @@ import ProjectSubmission from './components/ProjectSubmission';
 import TradeCompletion from './components/TradeCompletion';
 import TradeCreation from './components/TradeCreation';
 import ProjectValidation from './components/ProjectValidation';
+import ViewProjects from './components/ViewProjects';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/dashboard/create-trade" element={<TradeCreation />} />
             <Route path="/dashboard/complete-trade" element={<TradeCompletion />} />
             <Route path="/dashboard/validate-project" element={<ProjectValidation />} />
+            <Route path="/dashboard/view-projects" element={<ViewProjects />} />
         </Routes>
       </div>
     </Router>
