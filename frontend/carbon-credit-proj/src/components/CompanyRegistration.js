@@ -14,7 +14,7 @@ const CompanyRegistration = () => {
 
   useEffect(() => {
     setUserType(localStorage.getItem("userType"));
-  });
+  }, []);
 
   const handleConnectWallet = async () => {
     setIsConnecting(true);
@@ -39,34 +39,45 @@ const CompanyRegistration = () => {
     setWalletAddress("");
   };
 
-  console.log(`This is the ${userType} from Company Registration`);
 
   const handleRegister = async (event) => {
     event.preventDefault(); // Prevent the form from refreshing the page
-
+  
+    if (!web3) {
+      alert("Web3 is not available. Please connect your wallet.");
+      return;
+    }
+    // Update the contract address with the deployed contract address on Sepolia testnet
+    const contractAddress = "0xd9b4d7332A066038540099445EdE13ec3915358F";
+  
     // Get the contract instance
-    const networkId = await web3.eth.net.getId();
-    console.log("networkId: ", networkId);
-    const deployedNetwork = CompanyContract.networks[networkId];
-    console.log("deployedNetwork: ", deployedNetwork);
     const instance = new web3.eth.Contract(
       CompanyContract.abi,
-      deployedNetwork && deployedNetwork.address
+      contractAddress
     );
-    console.log("instance: ", instance);
-    setContract(instance);
-
-    // Interact with the smart contract
-    const accounts = await web3.eth.getAccounts();
-    // try {
-    //   await instance.methods
-    //     .registerCompany(walletAddress, name, registrationNumber)
-    //     .send({ from: accounts[0] });
-    //   alert("Company registered successfully!");
-    // } catch (error) {
-    //   alert("Error registering company: " + error.message);
-    // }
+  
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+  
+      if (accounts.length === 0) {
+        alert("No Ethereum accounts found.");
+        return;
+      }
+  
+      const senderAddress = accounts[0];
+      // Call your contract function here
+      // For example, if you want to call the 'registerCompany' function:
+      await instance.methods.registerCompany(senderAddress, name, registrationNumber).send({ from: senderAddress });
+  
+      alert("Company registered successfully!");
+    } catch (error) {
+      alert("Error registering company: " + error.message);
+    }
   };
+  
+  
 
   return (
     <div class="h-screen">

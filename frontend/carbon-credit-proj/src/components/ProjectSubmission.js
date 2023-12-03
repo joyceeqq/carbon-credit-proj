@@ -15,8 +15,8 @@ const ProjectSubmission = () => {
 
 
   useEffect(() => {
-      setUserType(localStorage.getItem("userType"))
-  });
+    setUserType(localStorage.getItem("userType"));
+  }, []);
 
   console.log(`This is the ${userType} from Project Submission`)
 
@@ -26,32 +26,38 @@ const ProjectSubmission = () => {
 
   const handleSubmitProject = async (event) => {
     event.preventDefault();
-
+  
     if (!web3) {
       const web3Instance = await getWeb3();
       setWeb3(web3Instance);
     }
-
+  
+    // Update the contract address with the deployed contract address on Sepolia testnet
+    const contractAddress = "0x41565b29d8EC63Ea11b10A80947221798537cf09";
+  
     const networkId = await web3.eth.net.getId();
     const deployedNetwork = ProjectContract.networks[networkId];
     const contractInstance = new web3.eth.Contract(
       ProjectContract.abi,
-      deployedNetwork && deployedNetwork.address,
+      contractAddress
     );
-
+  
     let fileUrl = '';
     if (file) {
       fileUrl = await uploadToIPFS(file);
     }
-
+  
     try {
       const accounts = await web3.eth.getAccounts();
-      await contractInstance.methods.submitProject(projectName, Number(expectedOffsets), description, fileUrl).send({ from: accounts[0] });
+      await contractInstance.methods
+        .submitProject(projectName, Number(expectedOffsets), description, fileUrl)
+        .send({ from: accounts[0] });
       setMessage('Project submitted successfully!');
     } catch (error) {
       setMessage(`Error submitting project: ${error.message}`);
     }
   };
+  
 
   return (
     <div class="h-screen">
