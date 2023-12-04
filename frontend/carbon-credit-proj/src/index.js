@@ -4,11 +4,8 @@ import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import background from './asset/header.png'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import CompanyRegistration from './components/CompanyRegistration';
-import ProjectSubmission from './components/ProjectSubmission';
-import TradeCreation from './components/TradeCreation';
-import TradeCompletion from './components/TradeCompletion';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,6 +23,7 @@ root.render(
     </head>
     <body class="leading-normal tracking-normal text-indigo-400 m-0 bg-cover bg-fixed" style={{ backgroundImage: `url(${background})` }}>
         <App />
+        <ToastContainer position='bottom-center'></ToastContainer>
     </body>
     
   </React.StrictMode>
