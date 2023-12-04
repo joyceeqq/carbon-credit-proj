@@ -49,7 +49,7 @@ const TradeCreation = () => {
       return;
     }
 
-    const contractAddress = "0x2d4d2830040Dd054d21f336188f11CA78e63b8E1";
+    const contractAddress = "0x589866F8169325be506dEA0951b9dE4bB7557e9B";
     
     const instance = new web3.eth.Contract(
       TradeContract.abi,

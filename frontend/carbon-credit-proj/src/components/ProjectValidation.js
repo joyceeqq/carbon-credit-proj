@@ -116,7 +116,7 @@ const ProjectValidation = () => {
     if (web3) {
         // Update the contract address with the deployed contract address on Sepolia testnet
         const contractAddress = "0x4e2A86bcd030E1bFE3FB4E81f4007223455Ec9b6";
-        const companyContractAddress = "0x1C20A3defd61B0426E51C91A77A23522Df45f47C"
+        const companyContractAddress = "0x7Da950351aDdce98851e1EF1cc2dAa4A62eb45aD"
         console.log("entering verification")
         // Get the contract instance
         const projectInstance = new web3.eth.Contract(

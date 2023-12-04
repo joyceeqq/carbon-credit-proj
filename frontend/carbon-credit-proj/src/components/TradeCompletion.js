@@ -62,7 +62,7 @@ const TradeCompletion = () => {
       setMessage("Please connect your MetaMask wallet.");
       return;
     }
-    const contractAddress = "0x2d4d2830040Dd054d21f336188f11CA78e63b8E1";
+    const contractAddress = "0x589866F8169325be506dEA0951b9dE4bB7557e9B";
 
     const instance = new web3.eth.Contract(TradeContract.abi, contractAddress);
 
@@ -99,8 +99,8 @@ const TradeCompletion = () => {
       }
   
       const accounts = await web3.eth.getAccounts();
-      const tradeContractAddress = "0x2d4d2830040Dd054d21f336188f11CA78e63b8E1";
-      const CompanyContractAddress = "0x1C20A3defd61B0426E51C91A77A23522Df45f47C";
+      const tradeContractAddress = "0x589866F8169325be506dEA0951b9dE4bB7557e9B";
+      const CompanyContractAddress = "0x7Da950351aDdce98851e1EF1cc2dAa4A62eb45aD";
   
       const tradeContract = new web3.eth.Contract(TradeContract.abi, tradeContractAddress);
       const carbonCreditContract = new web3.eth.Contract(CompanyContract.abi, CompanyContractAddress);
