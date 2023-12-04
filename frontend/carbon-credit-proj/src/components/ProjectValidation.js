@@ -143,29 +143,6 @@ const ProjectValidation = () => {
           }
       }
   }
-  async function updateCarbonCredits() {
-    if (web3) {
-        // Update the contract address with the deployed contract address on Sepolia testnet
-        const companyContractAddress = "0x1C20A3defd61B0426E51C91A77A23522Df45f47C"
-        console.log("entering verification")
-        // Get the contract instance
-        const companyInstance = new web3.eth.Contract(
-            CompanyContract.abi,
-            companyContractAddress
-          );
-        
-        try {
-            const accounts = await web3.eth.getAccounts();
-            
-            console.log("after adding")
-
-            toast.success('Credit added successfully!');
-          } catch (error) {
-            toast.error(`Error verifying project: ${error.message}`);
-          }
-      }
-
-  }
 
   const handleConnectWallet = async () => {
     setIsConnecting(true);
