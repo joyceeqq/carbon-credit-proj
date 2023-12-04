@@ -46,5 +46,6 @@ ipfs daemon
 ```
 cd frontend
 cd carbon-credit-proj
+npm install
 npm start
 ```
