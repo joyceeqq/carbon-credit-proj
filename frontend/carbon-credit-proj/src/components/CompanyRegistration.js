@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import getWeb3 from "../utils/getWeb3";
 import CompanyContract from "../contracts/CompanyContract.json"; // Import ABI
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const CompanyRegistration = () => {
   const [web3, setWeb3] = useState(null);
@@ -63,7 +64,7 @@ const CompanyRegistration = () => {
       });
   
       if (accounts.length === 0) {
-        alert("No Ethereum accounts found.");
+        toast.error("No Ethereum accounts found.");
         return;
       }
   
@@ -72,9 +73,9 @@ const CompanyRegistration = () => {
       // For example, if you want to call the 'registerCompany' function:
       await instance.methods.registerCompany(senderAddress, name, registrationNumber, emissions).send({ from: senderAddress });
   
-      alert("Company registered successfully!");
+      toast.success("Company registered successfully!");
     } catch (error) {
-      alert("Error registering company: " + error.message);
+      toast.error("Error registering company: " + error.message);
     }
   };
   
