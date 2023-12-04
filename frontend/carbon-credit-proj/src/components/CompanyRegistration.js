@@ -9,6 +9,7 @@ const CompanyRegistration = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const [name, setName] = useState("");
   const [registrationNumber, setRegistrationNumber] = useState("");
+  const [emissions, setEmissions] = useState("");
   const [userType, setUserType] = useState("");
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -48,7 +49,7 @@ const CompanyRegistration = () => {
       return;
     }
     // Update the contract address with the deployed contract address on Sepolia testnet
-    const contractAddress = "0xd9b4d7332A066038540099445EdE13ec3915358F";
+    const contractAddress = "0xdd14192987bb3a4355954E3F8116c68e8d59F8B1";
   
     // Get the contract instance
     const instance = new web3.eth.Contract(
@@ -69,7 +70,7 @@ const CompanyRegistration = () => {
       const senderAddress = accounts[0];
       // Call your contract function here
       // For example, if you want to call the 'registerCompany' function:
-      await instance.methods.registerCompany(senderAddress, name, registrationNumber).send({ from: senderAddress });
+      await instance.methods.registerCompany(senderAddress, name, registrationNumber, emissions).send({ from: senderAddress });
   
       alert("Company registered successfully!");
     } catch (error) {
@@ -96,7 +97,7 @@ const CompanyRegistration = () => {
               </span>
             </Link>
             <div class="flex w-1/2 justify-end content-center">
-            <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
+                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
                 to={"/dashboard/create-trade"}
                 >
                     Create Trade
@@ -115,6 +116,11 @@ const CompanyRegistration = () => {
                 to={"/dashboard/submit-project"}
                 >
                     Submit Project          
+                </Link>
+                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
+                to={"/dashboard/view-projects"}
+                >
+                    View Projects          
                 </Link>
             </div>
           </div>
@@ -181,6 +187,16 @@ const CompanyRegistration = () => {
               required
             />
           </div>
+            <div className="text-indigo-400 font-bold"></div>
+            <label>Emissions:</label>
+            <input
+              class="shadow appearance-none border rounded w-full my-4 p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+              type="text"
+              value={emissions}
+              onChange={(e) => setEmissions(e.target.value)}
+              placeholder="Enter Emissions"
+              required
+            />
           <button
             class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold my-2 py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
             type="submit"

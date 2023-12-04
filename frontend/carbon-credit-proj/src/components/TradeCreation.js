@@ -25,10 +25,10 @@ const TradeCreation = () => {
       setWeb3(await getWeb3());
       console.log(accounts);
       if (actionType === 'Buy') {
-        setBuyer(accounts);
+        setBuyer(accounts[0]);
         setSeller('');
       } else if (actionType === 'Sell') {
-        setSeller(accounts);
+        setSeller(accounts[0]);
         setBuyer('');
       }
     } catch (error) {
@@ -49,11 +49,11 @@ const TradeCreation = () => {
       return;
     }
 
-    const networkId = await web3.eth.net.getId();
-    const deployedNetwork = TradeContract.networks[networkId];
+    const contractAddress = "0x2d4d2830040Dd054d21f336188f11CA78e63b8E1";
+    
     const instance = new web3.eth.Contract(
       TradeContract.abi,
-      deployedNetwork && deployedNetwork.address
+      contractAddress
     );
 
     try {
@@ -82,7 +82,7 @@ const TradeCreation = () => {
               </span>
             </Link>
             <div className="flex w-1/2 justify-end content-center">
-            <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
+                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
                 to={"/dashboard/create-trade"}
                 >
                     Create Trade
@@ -101,6 +101,11 @@ const TradeCreation = () => {
                 to={"/dashboard/submit-project"}
                 >
                     Submit Project          
+                </Link>
+                <Link class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center font-bold h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="https://twitter.com/intent/tweet?url=#"
+                to={"/dashboard/view-projects"}
+                >
+                    View Projects          
                 </Link>
             </div>
           </div>
