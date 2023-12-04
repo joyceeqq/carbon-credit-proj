@@ -23,7 +23,7 @@ root.render(
     </head>
     <body class="leading-normal tracking-normal text-indigo-400 m-0 bg-cover bg-fixed" style={{ backgroundImage: `url(${background})` }}>
         <App />
-        <ToastContainer position='bottom-center'></ToastContainer>
+        <ToastContainer position='bottom-right'></ToastContainer>
     </body>
     
   </React.StrictMode>
