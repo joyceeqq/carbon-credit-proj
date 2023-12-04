@@ -33,7 +33,7 @@ const ProjectSubmission = () => {
     }
   
     // Update the contract address with the deployed contract address on Sepolia testnet
-    const contractAddress = "0x41565b29d8EC63Ea11b10A80947221798537cf09";
+    const contractAddress = "0x4e2A86bcd030E1bFE3FB4E81f4007223455Ec9b6";
   
     const networkId = await web3.eth.net.getId();
     const deployedNetwork = ProjectContract.networks[networkId];

@@ -30,7 +30,7 @@ const ViewProjects = () => {
   const fetchProjectDetails = async () => {
     if (web3) {
       // Update the contract address with the deployed contract address on Sepolia testnet
-      const contractAddress = "0x41565b29d8EC63Ea11b10A80947221798537cf09";
+      const contractAddress = "0x4e2A86bcd030E1bFE3FB4E81f4007223455Ec9b6";
 
       // Get the contract instance
       const instance = new web3.eth.Contract(
