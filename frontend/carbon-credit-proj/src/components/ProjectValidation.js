@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import getWeb3 from '../utils/getWeb3';
 import ProjectContract from '../contracts/ProjectContract.json';
-import { uploadToIPFS } from '../utils/ipfs';
+import CompanyContract from '../contracts/CompanyContract.json';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -10,7 +10,6 @@ const ProjectValidation = () => {
   const [projectId, setProjectId] = useState();
   const [expectedOffsets, setExpectedOffsets] = useState('');
   const [description, setDescription] = useState('');
-  const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
   const [userType, setUserType] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
@@ -25,7 +24,7 @@ const ProjectValidation = () => {
   useEffect(() => {
     setUserType(localStorage.getItem("userType"));
     if (web3) {
-        fetchProjectCount();
+        fetchProjectCount()
     }
   }, [web3]);
 
@@ -33,21 +32,28 @@ const ProjectValidation = () => {
 
   const fetchProjectCount = async () => {
     if (web3) {
-      // Update the contract address with the deployed contract address on Sepolia testnet
-      const contractAddress = "0x41565b29d8EC63Ea11b10A80947221798537cf09";
+        // Update the contract address with the deployed contract address on Sepolia testnet
+        const contractAddress = "0x41565b29d8EC63Ea11b10A80947221798537cf09";
 
-      // Get the contract instance
-      const instance = new web3.eth.Contract(
-        ProjectContract.abi,
-        contractAddress
-      );
+        // Get the contract instance
+        const instance = new web3.eth.Contract(
+            ProjectContract.abi,
+            contractAddress
+        );
 
-      // Call the 'projectCount' function to get the total number of projects
-      const count = await instance.methods.projectCount().call();
-      console.log(count);
-      setProjectCount(parseInt(count, 10));
-    }
-  };
+        // Call the 'projectCount' function to get the total number of projects
+        const count = await instance.methods.projectCount().call();
+        console.log(count);
+        setProjectCount(parseInt(count, 10));
+        const projectsList = [];
+        for (let id = 1; id <= projectCount; id++) {
+            const projectreturned = await instance.methods.projects(id).call();
+            console.log(project);
+            projectsList.push(projectreturned);
+          }
+        setProjects(projectsList);
+        console.log("Projects: ", projectsList)
+    }}
 
   const fetchHandler = async () => {
     fetchProjectById(projectId)
@@ -64,7 +70,7 @@ const ProjectValidation = () => {
 
   const verifyHandler = async () => {
     setVerify(true)
-    verifyProjectById(projectId,verify)
+    verifyProjectById(projectId,true)
     setVerify(false)
     setProject()
     setProject([])
@@ -106,26 +112,59 @@ const ProjectValidation = () => {
   }
 
   async function verifyProjectById(id,verify) {
+    console.log("verify me")
     if (web3) {
         // Update the contract address with the deployed contract address on Sepolia testnet
         const contractAddress = "0x41565b29d8EC63Ea11b10A80947221798537cf09";
-  
+        const companyContractAddress = "0x1C20A3defd61B0426E51C91A77A23522Df45f47C"
+        console.log("entering verification")
         // Get the contract instance
-        const instance = new web3.eth.Contract(
+        const projectInstance = new web3.eth.Contract(
           ProjectContract.abi,
           contractAddress
         );
+        const companyInstance = new web3.eth.Contract(
+            CompanyContract.abi,
+            companyContractAddress
+          );
+        console.log(verify)
+        console.log(companyInstance,projectInstance)
+        try {
+            const accounts = await web3.eth.getAccounts();
+            const success = await projectInstance.methods
+                .verifyProject(id,verify)
+                .send({ from: accounts[0] });
+            
+            const editCredit = await companyInstance.methods.addCarbonCredits(project.companyAddress,project.expectedOffsets).send({from: accounts[0]});            
+
+            toast.success('Project verified successfully!');
+          } catch (error) {
+            toast.error(`Error verifying project: ${error.message}`);
+          }
+      }
+  }
+  async function updateCarbonCredits() {
+    if (web3) {
+        // Update the contract address with the deployed contract address on Sepolia testnet
+        const companyContractAddress = "0x1C20A3defd61B0426E51C91A77A23522Df45f47C"
+        console.log("entering verification")
+        // Get the contract instance
+        const companyInstance = new web3.eth.Contract(
+            CompanyContract.abi,
+            companyContractAddress
+          );
         
         try {
             const accounts = await web3.eth.getAccounts();
-            const success = await instance.methods
-                .verifyProject(projectId,verify)
-                .send({ from: accounts[0] });
-            toast.success('Project submitted successfully!');
+            
+            console.log("after adding")
+
+            toast.success('Credit added successfully!');
           } catch (error) {
-            toast.error(`Error submitting project: ${error.message}`);
+            toast.error(`Error verifying project: ${error.message}`);
           }
       }
+
   }
 
   const handleConnectWallet = async () => {
