@@ -50,7 +50,7 @@ const CompanyRegistration = () => {
       return;
     }
     // Update the contract address with the deployed contract address on Sepolia testnet
-    const contractAddress = "0xdd14192987bb3a4355954E3F8116c68e8d59F8B1";
+    const contractAddress = "0x1C20A3defd61B0426E51C91A77A23522Df45f47C";
   
     // Get the contract instance
     const instance = new web3.eth.Contract(
