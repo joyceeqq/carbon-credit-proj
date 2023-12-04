@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import getWeb3 from '../utils/getWeb3';
 import ProjectContract from '../contracts/ProjectContract.json';
-import { uploadToIPFS } from '../utils/ipfs';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const ProjectSubmission = () => {
   const [web3, setWeb3] = useState(null);
@@ -42,19 +42,14 @@ const ProjectSubmission = () => {
       contractAddress
     );
   
-    let fileUrl = '';
-    if (file) {
-      fileUrl = await uploadToIPFS(file);
-    }
-  
     try {
       const accounts = await web3.eth.getAccounts();
       await contractInstance.methods
-        .submitProject(projectName, Number(expectedOffsets), description, fileUrl)
+        .submitProject(projectName, Number(expectedOffsets), description)
         .send({ from: accounts[0] });
-      setMessage('Project submitted successfully!');
+      toast.success('Project submitted successfully!');
     } catch (error) {
-      setMessage(`Error submitting project: ${error.message}`);
+      toast.error(`Error submitting project: ${error.message}`);
     }
   };
   
@@ -147,7 +142,6 @@ const ProjectSubmission = () => {
             class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold my-2 py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
             type="submit">Submit Project</button>
           </form>
-          {message && <p className="text-indigo-100">{message}</p>}
         </div>   
       </div>
     
