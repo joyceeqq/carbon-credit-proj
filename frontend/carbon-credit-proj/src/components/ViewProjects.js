@@ -150,13 +150,13 @@ const ViewProjects = () => {
           <table className="w-full border-collapse border border-green-800">
             <thead>
               <tr className="bg-green-600 text-white">
-                <th className="border border-green-600 px-4 py-2">ID</th>
-                <th className="border border-green-600 px-4 py-2">Name</th>
-                <th className="border border-green-600 px-4 py-2">
+                <th className="border border-blue-400 px-4 py-2">ID</th>
+                <th className="border border-blue-400 px-4 py-2">Name</th>
+                <th className="border border-blue-400 px-4 py-2">
                   Description
                 </th>
-                <th className="border border-green-600 px-4 py-2">Status</th>
-                <th className="border border-green-600 px-4 py-2">
+                <th className="border border-blue-400 px-4 py-2">Status</th>
+                <th className="border border-blue-400 px-4 py-2">
                   Expected Offsets
                 </th>
               </tr>
