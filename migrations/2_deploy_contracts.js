@@ -7,5 +7,4 @@ module.exports = function (deployer) {
   deployer.deploy(CompanyContract);
   deployer.deploy(ProjectContract);
   deployer.deploy(TradeContract);
-  deployer.deploy(CarbonCredits);
 };
