@@ -24,6 +24,9 @@ contract CompanyContract {
     // Event to emit when carbon credits are deducted
     event CarbonCreditsDeducted(address indexed walletAddress, uint amount);
 
+    // Event to emit when carbon credits are traded
+    event CarbonCreditsTraded(address indexed seller, address indexed buyer, uint amount);
+
     function registerCompany(
         address _walletAddress,
         string memory _name,
@@ -76,6 +79,20 @@ contract CompanyContract {
         
         // Emit an event after deducting carbon credits
         emit CarbonCreditsDeducted(_walletAddress, _amount);
+    }
+
+    // Function to trade carbon credits between companies
+    function tradeCarbonCredits(address _seller, address _buyer, uint _amount) public {
+        require(companies[_seller].walletAddress != address(0), "Seller not registered.");
+        require(companies[_buyer].walletAddress != address(0), "Buyer not registered.");
+        require(companies[_seller].carbonCredits >= _amount, "Seller does not have enough carbon credits.");
+
+        // Transfer carbon credits from seller to buyer
+        companies[_seller].carbonCredits -= _amount;
+        companies[_buyer].carbonCredits += _amount;
+
+        // Emit an event to indicate the trade
+        emit CarbonCreditsTraded(_seller, _buyer, _amount);
     }
 
     // Additional functions related to companies
