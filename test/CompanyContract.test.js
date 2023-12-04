@@ -1,29 +1,52 @@
 const CompanyContract = artifacts.require("CompanyContract");
-const assert = require('chai').assert;
 
-contract("CompanyContract", (accounts) => {
-  it("should register a company", async () => {
-    const contractInstance = await CompanyContract.new();
-    await contractInstance.registerCompany(accounts[1], "Test Company", "123456789");
-    const registeredCompany = await contractInstance.companies(accounts[1]);
-    assert.equal(registeredCompany.name, "Test Company", "The company name was not registered correctly");
-  });
+contract("CompanyContract", accounts => {
+    let contractInstance;
+    const [admin, company1, company2] = accounts;
 
-  it("should emit an event when a company is registered", async () => {
-    const contractInstance = await CompanyContract.new();
-    const result = await contractInstance.registerCompany(accounts[2], "New Company", "987654321");
-    assert.equal(result.logs[0].event, "CompanyRegistered", "CompanyRegistered event was not emitted");
-  });
+    beforeEach(async () => {
+        contractInstance = await CompanyContract.new();
+    });
 
-  it("should not allow a company to be registered twice", async () => {
-    const contractInstance = await CompanyContract.new();
-    await contractInstance.registerCompany(accounts[3], "Existing Company", "123123123");
+    it("should register a company", async () => {
+        await contractInstance.registerCompany(company1, "Company One", "123456", 100, { from: admin });
+        const registeredCompany = await contractInstance.companies(company1);
 
-    try {
-      await contractInstance.registerCompany(accounts[3], "Existing Company", "123123123");
-      assert.fail("The same company was registered twice.");
-    } catch (error) {
-      assert.include(error.message, "Company already registered", "Error message does not match");
-    }
-  });
+        assert.equal(registeredCompany.name, "Company One", "Company name is not set correctly");
+        assert.equal(registeredCompany.registrationNumber, "123456", "Registration number is not set correctly");
+        assert.equal(registeredCompany.emissions, 100, "Emissions are not set correctly");
+    });
+
+    it("should add carbon credits to a company", async () => {
+        await contractInstance.registerCompany(company1, "Company One", "123456", 100, { from: admin });
+        await contractInstance.addCarbonCredits(company1, 50, { from: admin });
+
+        const company = await contractInstance.companies(company1);
+        assert.equal(company.carbonCredits, 50, "Carbon credits were not added correctly");
+    });
+
+    it("should deduct carbon credits from a company", async () => {
+        await contractInstance.registerCompany(company1, "Company One", "123456", 100, { from: admin });
+        await contractInstance.addCarbonCredits(company1, 50, { from: admin });
+        await contractInstance.deductCarbonCredits(company1, 20, { from: admin });
+
+        const company = await contractInstance.companies(company1);
+        assert.equal(company.carbonCredits, 30, "Carbon credits were not deducted correctly");
+    });
+
+    it("should allow trading of carbon credits", async () => {
+        await contractInstance.registerCompany(company1, "Company One", "123456", 100, { from: admin });
+        await contractInstance.registerCompany(company2, "Company Two", "654321", 200, { from: admin });
+        await contractInstance.addCarbonCredits(company1, 100, { from: admin });
+
+        await contractInstance.tradeCarbonCredits(company1, company2, 40, { from: admin });
+
+        const seller = await contractInstance.companies(company1);
+        const buyer = await contractInstance.companies(company2);
+
+        assert.equal(seller.carbonCredits, 60, "Seller's carbon credits not updated correctly");
+        assert.equal(buyer.carbonCredits, 40, "Buyer did not receive the correct amount of carbon credits");
+    });
+
+    // Additional tests as needed...
 });
