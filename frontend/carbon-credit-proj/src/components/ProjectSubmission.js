@@ -137,12 +137,12 @@ const ProjectSubmission = () => {
                 required
               />
             </div>
-            <div className="text-indigo-400 font-bold">
+            {/* <div className="text-indigo-400 font-bold">
               <label>Project Proposal File:</label>
               <input 
               class="shadow appearance-none border rounded w-full my-4 p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
               type="file" onChange={handleFileChange} />
-            </div>
+            </div> */}
             <button 
             class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold my-2 py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
             type="submit">Submit Project</button>
