@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import getWeb3 from '../utils/getWeb3';
 import TradeContract from '../contracts/TradeContract.json';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const TradeCreation = () => {
   const [web3, setWeb3] = useState(null);
@@ -61,9 +62,9 @@ const TradeCreation = () => {
       await instance.methods
         .createTrade(buyer, seller, creditsAmount, terms)
         .send({ from: accounts[0] });
-      setMessage('Trade created successfully!');
+      toast.success('Trade created successfully!');
     } catch (error) {
-      setMessage(`Error creating trade: ${error.message}`);
+      toast.error(`Error creating trade: ${error.message}`);
     }
   };
 
@@ -201,7 +202,6 @@ const TradeCreation = () => {
             Create Trade
           </button>
         </form>
-        {message && <p className="text-indigo-100">{message}</p>}
       </div>
     </div>
   );
